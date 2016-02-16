@@ -3,4 +3,4 @@ Skridd authors
 
 ## The primary author is:
 
-* Serban Gilvitu <serban.gilvitu.dev@gmail.com>
+* Serban Gilvitu <serban.gilvitu.dev at gmail.com>
