@@ -17,12 +17,18 @@
 
 package com.skridd.server.rs.jaxb;
 
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Path( "metric" )
 public class MetricResource {
+    
+    static Logger LOGGER = LoggerFactory.getLogger(MetricResource.class);
     
     /**
      * Update a metric of the client machine performance
