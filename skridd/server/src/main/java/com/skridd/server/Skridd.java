@@ -23,18 +23,34 @@ import java.util.logging.Logger;
 
 public enum Skridd {
     INSTANCE;
+    public final Object INIT_LOCK = new Object();
     
     private String hostname;
+    private String hostAddress;
     
-    void init(){
-        InetAddress ip;
-        try {
+    /**
+     * 
+     * @throws UnknownHostException 
+     */
+    void init() throws UnknownHostException{
+        synchronized(INIT_LOCK) {
+            InetAddress ip;
             ip = InetAddress.getLocalHost();
             hostname = ip.getHostName();
+            hostAddress = ip.getHostAddress();
             Logger.getLogger(Skridd.class.getName())
-                    .log(Level.INFO, "Hostname is " + hostname);
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(Skridd.class.getName()).log(Level.SEVERE, null, ex);
+                    .log(Level.INFO, "Hostname is " + hostname 
+                            + "\nHost address is " + hostAddress);
         }
     }
+
+    public String getHostname() {
+        return hostname;
+    }
+
+    public String getHostAddress() {
+        return hostAddress;
+    }
+    
+
 }

@@ -54,7 +54,7 @@ public class Main {
         Skridd.INSTANCE.init();
         final HttpServer server = startServer();
         System.out.println(String.format("Skridd server started at "
-                + "%suri\nHit enter to stop it...", BASE_URI));
+                + "%s\nHit enter to stop it...", BASE_URI));
         System.in.read();
         server.shutdown();
     }

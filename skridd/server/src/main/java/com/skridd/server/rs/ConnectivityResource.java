@@ -15,8 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.skridd.server;
+package com.skridd.server.rs;
 
+import com.skridd.server.Skridd;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -36,7 +37,10 @@ public class ConnectivityResource {
     @GET
     @Produces( MediaType.TEXT_PLAIN )
     public String getIt() {
-        return "Connected to skridd!";
+        return "Connected to skridd server on "
+                + "\nh"
+                + "Host:"+Skridd.INSTANCE.getHostname()
+                + "\nIP:"+Skridd.INSTANCE.getHostAddress();
     }
     
 }
