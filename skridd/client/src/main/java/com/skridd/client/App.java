@@ -28,18 +28,18 @@ import java.net.URI;
 public class App {
 
   private static URI getBaseURI() {
-    return UriBuilder.fromUri("http://localhost:9797/myapp").build();
+    return UriBuilder.fromUri("http://localhost:9797/skridd").build();
   }
       
     public static void main( String[] args ) {
-    //http://www.vogella.com/tutorials/REST/article.html
+        
     ClientConfig config = new ClientConfig();
     Client client = ClientBuilder.newClient(config);
     
     WebTarget target = client.target(getBaseURI());
 
     String plainAnswer = 
-        target.path("myresource").request().accept(MediaType.TEXT_PLAIN).get(String.class);
+        target.path("connectivity").request().accept(MediaType.TEXT_PLAIN).get(String.class);
     System.out.println(plainAnswer);
     }
 

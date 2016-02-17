@@ -30,7 +30,7 @@ import java.net.URI;
  */
 public class Main {
     // Base URI the Grizzly HTTP server will listen on
-    public static final String BASE_URI = "http://localhost:9797/myapp/";
+    public static final String BASE_URI = "http://localhost:9797/skridd/";
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
@@ -51,6 +51,7 @@ public class Main {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
+        Skridd.INSTANCE.init();
         final HttpServer server = startServer();
         System.out.println(String.format("Skridd server started at "
                 + "%suri\nHit enter to stop it...", BASE_URI));
