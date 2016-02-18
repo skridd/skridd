@@ -16,10 +16,6 @@
  */
 package com.skridd.server;
 
-/**
- *
- * @author Serban Gilvitu <serban.gilvitu.dev@gmail.com>
- */
 public class Constants {
     
     // Base URI the Grizzly HTTP server will listen on

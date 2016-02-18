@@ -17,7 +17,6 @@
 package com.skridd.client;
 
 import com.skridd.server.Constants;
-import com.skridd.server.Skridd;
 import java.net.UnknownHostException;
 import javax.ws.rs.client.WebTarget;
 import org.glassfish.grizzly.http.server.HttpServer;
@@ -45,12 +44,12 @@ public class SkriddClientIT {
 
     @Before
     public void setUp() throws UnknownHostException {
-        server = Skridd.startServer(Constants.TEST_URI);
+//        server = Skridd.startServer(Constants.TEST_URI);
     }
 
     @After
-    public void tearDown() {
-        server.shutdown();
+    public void tearDown() throws InterruptedException {
+//        server.shutdown();
     }
 
     /**
@@ -59,7 +58,7 @@ public class SkriddClientIT {
     @Test
     public void testGetTarget() {
         System.out.println("getTarget");
-        SkriddClient instance = new SkriddClient(Constants.TEST_URI);
+        SkriddClient instance = new SkriddClient(Constants.BASE_URI);
         WebTarget result = instance.getTarget();
         assertNotNull(result);
     }
@@ -72,7 +71,9 @@ public class SkriddClientIT {
         System.out.println("postMetricUpdate");
         String metricName = "cpu";
         String metricValue = "35";
-        SkriddClient instance = new SkriddClient(Constants.TEST_URI);
+        System.out.println("->create client");
+        SkriddClient instance = new SkriddClient(Constants.BASE_URI);
+        System.out.println("->post metrics");
         instance.postMetricUpdate(metricName, metricValue);
     }
     

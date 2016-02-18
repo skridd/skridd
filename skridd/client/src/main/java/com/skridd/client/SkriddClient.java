@@ -35,15 +35,15 @@ public class SkriddClient {
 
     WebTarget target;
 
-    public SkriddClient(String baseURI) {
+    public SkriddClient(String skriddURI) {
         ClientConfig config = new ClientConfig();
         javax.ws.rs.client.Client client = ClientBuilder.newClient(config);
 
-        target = client.target(getURI(baseURI));
+        target = client.target(getURI(skriddURI));
     }
 
-    private static URI getURI(String baseURI) {
-        return UriBuilder.fromUri(baseURI).build();
+    private static URI getURI(String skriddURI) {
+        return UriBuilder.fromUri(skriddURI).build();
     }
 
     public WebTarget getTarget() {

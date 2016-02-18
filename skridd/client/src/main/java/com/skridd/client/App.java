@@ -34,9 +34,6 @@ public class App {
                 = skriddClient.getTarget().path("connectivity").request()
                         .accept(MediaType.TEXT_PLAIN).get(String.class);
         LOGGER.debug(plainAnswer);
-                String metricName = "cpu";
-        String metricValue = "35";
-        skriddClient.postMetricUpdate(metricName, metricValue);
     }
 
 }
