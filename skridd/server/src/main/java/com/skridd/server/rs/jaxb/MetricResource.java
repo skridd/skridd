@@ -14,35 +14,38 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.skridd.server.rs.jaxb;
 
-
-import javax.ws.rs.GET;
+import com.skridd.server.Constants;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Path( "metric" )
+@Path("metric")
 public class MetricResource {
-    
+
     static Logger LOGGER = LoggerFactory.getLogger(MetricResource.class);
-    
+
     /**
      * Update a metric of the client machine performance
+     *
      * @param name Metric name
      * @param value Metric value
-     * @return 
+     * @return
      */
-    @GET
-    @Path( "/update/{name}/{value}" )
-    public String getResponse( @PathParam( "name" ) String name
-            ,@PathParam( "value" ) String value) {
-        return "Update" 
-                + " metric " + name
-                + " to value " + value;
+    @POST
+    @Path("/post")
+    public Response postMetric(@FormParam(Constants.POST_METRIC_NAME) String name
+            , @FormParam(Constants.POST_METRIC_VALUE) String value) {
+        String out = Constants.POST_METRIC_NAME+"=" + name+" "
+                        +Constants.POST_METRIC_VALUE+"=" + value;
+        LOGGER.debug("[postMetric]:"+out);
+        return Response.status( Constants.RESPONSE_OK )
+                .entity(out)
+                .build();
     }
-    
 }

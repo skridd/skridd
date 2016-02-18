@@ -16,41 +16,29 @@
  */
 package com.skridd.server;
 
-import java.net.InetAddress;
+import java.net.URI;
 import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.server.ResourceConfig;
 
-public enum Skridd {
-    INSTANCE;
-    public final Object INIT_LOCK = new Object();
-    
-    private String hostname;
-    private String hostAddress;
+public class Skridd {
     
     /**
-     * 
-     * @throws UnknownHostException 
+     * Starts Grizzly HTTP server exposing JAX-RS resources defined in this
+     * application.
+     *
+     * @param baseURI
+     * @return Grizzly HTTP server.
+     * @throws java.net.UnknownHostException
      */
-    void init() throws UnknownHostException{
-        synchronized(INIT_LOCK) {
-            InetAddress ip;
-            ip = InetAddress.getLocalHost();
-            hostname = ip.getHostName();
-            hostAddress = ip.getHostAddress();
-            Logger.getLogger(Skridd.class.getName())
-                    .log(Level.INFO, "Hostname is " + hostname 
-                            + "\nHost address is " + hostAddress);
-        }
+    public static HttpServer startServer(String baseURI) throws UnknownHostException {
+        // create a resource config that scans for JAX-RS resources and providers
+        final ResourceConfig rc = new ResourceConfig().packages("com.skridd");
+        Configuration.INSTANCE.init();
+        // create and start a new instance of grizzly http server
+        // exposing the Jersey application at BASE_URI
+        return GrizzlyHttpServerFactory.createHttpServer(URI.create(baseURI), rc);
     }
-
-    public String getHostname() {
-        return hostname;
-    }
-
-    public String getHostAddress() {
-        return hostAddress;
-    }
-    
 
 }

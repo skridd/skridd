@@ -14,33 +14,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package com.skridd.server.rs;
-
-import com.skridd.server.Configuration;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
+package com.skridd.server;
 
 /**
- * Root resource (exposed at "connectivity" path)
+ *
+ * @author Serban Gilvitu <serban.gilvitu.dev@gmail.com>
  */
-@Path( "connectivity" )
-public class ConnectivityResource {
+public class Constants {
+    
+    // Base URI the Grizzly HTTP server will listen on
+    public static final String BASE_URI = "http://localhost:9797/skridd/";
+    public static final String TEST_URI = "http://localhost:9898/skridd/";
 
-    /**
-     *
-     * @return String that will be returned as a text/plain response.
-     */
-    @GET
-    @Produces( MediaType.TEXT_PLAIN )
-    public String getIt() {
-        return "Connected to skridd server on "
-                + "\nh"
-                + "Host:"+Configuration.INSTANCE.getHostname()
-                + "\nIP:"+Configuration.INSTANCE.getHostAddress();
-    }
+    //Response codes
+    public final static int RESPONSE_OK=200;
+    
+    //POST params
+    public static final String POST_METRIC_NAME="metric_name";
+    public static final String POST_METRIC_VALUE="metric_value";
     
 }

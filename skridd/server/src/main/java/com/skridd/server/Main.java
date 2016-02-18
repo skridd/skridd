@@ -18,32 +18,15 @@
 package com.skridd.server;
 
 import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
 
 import java.io.IOException;
-import java.net.URI;
+import org.apache.log4j.BasicConfigurator;
 
 /**
  * Main class.
  *
  */
 public class Main {
-    // Base URI the Grizzly HTTP server will listen on
-    public static final String BASE_URI = "http://localhost:9797/skridd/";
-
-    /**
-     * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
-     * @return Grizzly HTTP server.
-     */
-    public static HttpServer startServer() {
-        // create a resource config that scans for JAX-RS resources and providers
-        final ResourceConfig rc = new ResourceConfig().packages("com.skridd");
-
-        // create and start a new instance of grizzly http server
-        // exposing the Jersey application at BASE_URI
-        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
-    }
 
     /**
      * Main method.
@@ -51,10 +34,10 @@ public class Main {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        Skridd.INSTANCE.init();
-        final HttpServer server = startServer();
+        BasicConfigurator.configure();
+        final HttpServer server = Skridd.startServer( Constants.BASE_URI );
         System.out.println(String.format("Skridd server started at "
-                + "%s\nHit enter to stop it...", BASE_URI));
+                + "%s\nHit enter to stop it...", Constants.BASE_URI));
         System.in.read();
         server.shutdown();
     }

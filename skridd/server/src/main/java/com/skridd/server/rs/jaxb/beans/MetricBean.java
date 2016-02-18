@@ -14,33 +14,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.skridd.server.rs.jaxb.beans;
 
-package com.skridd.server.rs;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import com.skridd.server.Configuration;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+@XmlRootElement
+public class MetricBean {
+    String name;
+    String value;
 
-
-/**
- * Root resource (exposed at "connectivity" path)
- */
-@Path( "connectivity" )
-public class ConnectivityResource {
-
-    /**
-     *
-     * @return String that will be returned as a text/plain response.
-     */
-    @GET
-    @Produces( MediaType.TEXT_PLAIN )
-    public String getIt() {
-        return "Connected to skridd server on "
-                + "\nh"
-                + "Host:"+Configuration.INSTANCE.getHostname()
-                + "\nIP:"+Configuration.INSTANCE.getHostAddress();
+    public String getName() {
+        return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+    
     
 }

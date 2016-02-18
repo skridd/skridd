@@ -14,33 +14,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.skridd.client;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
+import com.skridd.server.Constants;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriBuilder;
-import org.glassfish.jersey.client.ClientConfig;
-import java.net.URI;
+import org.apache.log4j.BasicConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class App {
-
-  private static URI getBaseURI() {
-    return UriBuilder.fromUri("http://localhost:9797/skridd").build();
-  }
-      
-    public static void main( String[] args ) {
-        
-    ClientConfig config = new ClientConfig();
-    Client client = ClientBuilder.newClient(config);
     
-    WebTarget target = client.target(getBaseURI());
+    static Logger LOGGER = LoggerFactory.getLogger(App.class);
 
-    String plainAnswer = 
-        target.path("connectivity").request().accept(MediaType.TEXT_PLAIN).get(String.class);
-    System.out.println(plainAnswer);
+ 
+    public static void main(String[] args) {
+        BasicConfigurator.configure();
+        SkriddClient skriddClient = new SkriddClient(Constants.BASE_URI);
+        String plainAnswer
+                = skriddClient.getTarget().path("connectivity").request()
+                        .accept(MediaType.TEXT_PLAIN).get(String.class);
+        LOGGER.debug(plainAnswer);
+                String metricName = "cpu";
+        String metricValue = "35";
+        skriddClient.postMetricUpdate(metricName, metricValue);
     }
 
 }

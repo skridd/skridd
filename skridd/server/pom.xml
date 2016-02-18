@@ -16,7 +16,7 @@
         <repository>
             <id>snapshot-repository.java.net</id>
             <name>Java.net Snapshot Repository for Maven</name>
-            <url>https://maven.java.net/content/repositories/snapshots/</url>
+            <url>https://maven.java.net/content/repositories/releases/</url>
             <layout>default</layout>
         </repository>
     </repositories>
