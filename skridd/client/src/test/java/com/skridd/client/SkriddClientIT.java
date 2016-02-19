@@ -16,8 +16,12 @@
  */
 package com.skridd.client;
 
+import com.skridd.client.system.Os;
 import com.skridd.server.Constants;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.UnknownHostException;
+import javax.annotation.processing.Processor;
 import javax.ws.rs.client.WebTarget;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;
@@ -67,15 +71,13 @@ public class SkriddClientIT {
      * Test of postMetricUpdate method, of class SkriddClient.
      */
     @Test
-    public void testPostMetricUpdate() throws InterruptedException {
+    public void testPostMetricUpdate() throws InterruptedException, IOException {
         System.out.println("postMetricUpdate");
         String metricName = "cpu";
         String metricValue = "35";
         System.out.println("->create client");
         SkriddClient instance = new SkriddClient(Constants.BASE_URI);
         System.out.println("->post metrics");
-        instance.postMetricUpdate(metricName, metricValue);
     }
-    
 
 }
