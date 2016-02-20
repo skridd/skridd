@@ -49,12 +49,10 @@ public class SkriddClientIT {
 
     @Before
     public void setUp() throws UnknownHostException {
-//        server = Skridd.startServer(Constants.TEST_URI);
     }
 
     @After
     public void tearDown() throws InterruptedException {
-//        server.shutdown();
     }
 
     /**
