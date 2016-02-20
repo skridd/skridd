@@ -16,6 +16,7 @@
  */
 package com.skridd.client;
 
+import com.skridd.client.system.Cpu;
 import com.skridd.client.system.Os;
 import com.skridd.server.Constants;
 import java.io.IOException;
@@ -74,10 +75,12 @@ public class SkriddClientIT {
     public void testPostMetricUpdate() throws InterruptedException, IOException {
         System.out.println("postMetricUpdate");
         String metricName = "cpu";
-        String metricValue = "35";
         System.out.println("->create client");
         SkriddClient instance = new SkriddClient(Constants.BASE_URI);
         System.out.println("->post metrics");
+        for (int i = 0; i < 10; i++) {
+            instance.postMetricUpdate(metricName, Cpu.getCpuUsage().toString());
+        }
     }
 
 }

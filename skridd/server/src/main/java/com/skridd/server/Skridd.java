@@ -18,12 +18,28 @@ package com.skridd.server;
 
 import java.net.URI;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class Skridd {
-    
+public enum Skridd {
+
+    INSTANCE;
+
+    static Logger LOGGER = LoggerFactory.getLogger(Skridd.class);
+
+    // Map containing the metrics
+    Map metricMap = Collections.synchronizedMap(new HashMap<String, List<Float>>());
+    final int MAP_MAX_SIZE = 10;
+    final int LIST_MAX_SIZE = 10;
+
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this
      * application.
@@ -41,4 +57,30 @@ public class Skridd {
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(baseURI), rc);
     }
 
+    public void updateMetric(String metricName, Float metricValue) {
+        if (!metricMap.containsKey(metricName)) {
+            if (metricMap.size() >= MAP_MAX_SIZE) {
+                LOGGER.error("Maximum number of monitored metrics - exceeded");
+            } else {
+                List list = new ArrayList<Float>();
+                list.add(metricValue);
+                metricMap.put( metricName, list);
+            }
+        }
+        else {
+            List list = (List) metricMap.get(metricName);
+            if ( list.size() >= LIST_MAX_SIZE) {
+                list.remove(0);
+            }
+            list.add(metricValue);
+        }
+    }
+    
+    public List<Float> getMetricValues(String metricName) {
+        List<Float> list = null;
+        if (metricMap.containsKey(metricName)) {
+            list = (List<Float>)metricMap.get(metricName);
+        }
+        return list;
+    }
 }

@@ -17,6 +17,7 @@
 package com.skridd.server.rs.jaxb;
 
 import com.skridd.server.Constants;
+import com.skridd.server.Skridd;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -44,6 +45,7 @@ public class MetricResource {
         String out = Constants.POST_METRIC_NAME+"=" + name+" "
                         +Constants.POST_METRIC_VALUE+"=" + value;
         LOGGER.debug("[postMetric]:"+out);
+        Skridd.INSTANCE.updateMetric(name, Float.parseFloat(value));
         return Response.status( Constants.RESPONSE_OK )
                 .entity(out)
                 .build();

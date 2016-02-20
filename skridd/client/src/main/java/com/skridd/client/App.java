@@ -16,7 +16,9 @@
  */
 package com.skridd.client;
 
+import com.skridd.client.system.Cpu;
 import com.skridd.server.Constants;
+import java.io.IOException;
 import javax.ws.rs.core.MediaType;
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
@@ -27,7 +29,7 @@ public class App {
     static Logger LOGGER = LoggerFactory.getLogger(App.class);
 
  
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         BasicConfigurator.configure();
         SkriddClient skriddClient = new SkriddClient(Constants.BASE_URI);
         String plainAnswer
