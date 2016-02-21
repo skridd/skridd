@@ -12,8 +12,8 @@
     <packaging>jar</packaging>
     <repositories>
         <repository>
-            <id>snapshot-repository.java.net</id>
-            <name>Java.net Snapshot Repository for Maven</name>
+            <id>java.net-release</id>
+            <name>Java.net Release Repository for Maven</name>
             <url>https://maven.java.net/content/repositories/releases/</url>
             <layout>default</layout>
         </repository>
@@ -22,7 +22,7 @@
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.1-SNAPSHOT</version>
+            <version>2.0.1</version>
             <type>jar</type>
         </dependency>
         <dependency>
@@ -46,7 +46,7 @@
         <dependency>
             <groupId>org.glassfish.main.security</groupId>
             <artifactId>security-ee</artifactId>
-            <version>4.0.1-SNAPSHOT</version>
+            <version>4.1.1</version>
             <type>jar</type>
         </dependency>
         <dependency>
