@@ -18,10 +18,16 @@ package com.skridd.server.rs.jaxb;
 
 import com.skridd.server.Constants;
 import com.skridd.server.Skridd;
+import com.skridd.server.rs.jaxb.json.MetricListMarshaller;
+import com.skridd.server.rs.jaxb.model.MetricList;
+import java.util.ArrayList;
+import java.util.logging.Level;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
+import javax.xml.bind.JAXBException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,14 +46,33 @@ public class MetricResource {
      */
     @POST
     @Path("/post")
-    public Response postMetric(@FormParam(Constants.POST_METRIC_NAME) String name
-            , @FormParam(Constants.POST_METRIC_VALUE) String value) {
-        String out = Constants.POST_METRIC_NAME+"=" + name+" "
-                        +Constants.POST_METRIC_VALUE+"=" + value;
-        LOGGER.debug("[postMetric]:"+out);
+    public Response postMetric(@FormParam(Constants.POST_METRIC_NAME) String name, @FormParam(Constants.POST_METRIC_VALUE) String value) {
+        String out = Constants.POST_METRIC_NAME + "=" + name + " "
+                + Constants.POST_METRIC_VALUE + "=" + value;
+        LOGGER.debug("[postMetric]:" + out);
         Skridd.INSTANCE.updateMetric(name, Float.parseFloat(value));
-        return Response.status( Constants.RESPONSE_OK )
+        return Response.status(Constants.RESPONSE_OK)
                 .entity(out)
+                .build();
+    }
+
+    @GET
+    @Path("/json")
+    public Response getJson() {
+        MetricList list = new MetricList();
+        list.setMetricName(Constants.METRIC_CPU);
+        list.setMetricValues(new ArrayList<Float>());
+        list.getMetricValues().addAll(Skridd.INSTANCE.getMetricValues(Constants.METRIC_CPU));
+        MetricListMarshaller m;
+        try {
+            m = new MetricListMarshaller( );
+            LOGGER.debug(m.createJson(list));
+        } catch (JAXBException ex) {
+            LOGGER.debug("[getJson] Error:", ex);
+        }
+ 
+        return Response.status(Constants.RESPONSE_OK)
+                .entity("OK")
                 .build();
     }
 }

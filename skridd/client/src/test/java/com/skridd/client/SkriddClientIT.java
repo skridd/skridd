@@ -72,7 +72,7 @@ public class SkriddClientIT {
     @Test
     public void testPostMetricUpdate() throws InterruptedException, IOException {
         System.out.println("postMetricUpdate");
-        String metricName = "cpu";
+        String metricName = Constants.METRIC_CPU;
         System.out.println("->create client");
         SkriddClient instance = new SkriddClient(Constants.BASE_URI);
         System.out.println("->post metrics");
