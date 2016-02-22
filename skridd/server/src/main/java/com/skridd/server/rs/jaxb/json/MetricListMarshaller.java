@@ -21,6 +21,8 @@ import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import org.json.JSONObject;
+import org.json.XML;
 
 public class MetricListMarshaller {
 
@@ -38,6 +40,8 @@ public class MetricListMarshaller {
         marshaller.marshal(metricList, System.out);
         java.io.StringWriter sw = new StringWriter();
         marshaller.marshal(metricList, sw);
-        return sw.toString();
+        JSONObject xmlJSONObj = XML.toJSONObject(sw.toString());
+        String jsonPrettyPrintString = xmlJSONObj.toString(4);
+        return jsonPrettyPrintString;
     }
 }

@@ -61,18 +61,18 @@ public class MetricResource {
     public Response getJson() {
         MetricList list = new MetricList();
         list.setMetricName(Constants.METRIC_CPU);
-        list.setMetricValues(new ArrayList<Float>());
-        list.getMetricValues().addAll(Skridd.INSTANCE.getMetricValues(Constants.METRIC_CPU));
-        MetricListMarshaller m;
+        list.setMetricValues(Skridd.INSTANCE.getMetricValues(Constants.METRIC_CPU));
+        String output="{}";
         try {
-            m = new MetricListMarshaller( );
-            LOGGER.debug(m.createJson(list));
+            MetricListMarshaller m = new MetricListMarshaller( );
+            output = m.createJson(list);
+            LOGGER.debug(output);
         } catch (JAXBException ex) {
             LOGGER.debug("[getJson] Error:", ex);
         }
  
         return Response.status(Constants.RESPONSE_OK)
-                .entity("OK")
+                .entity(output)
                 .build();
     }
 }
